@@ -1,20 +1,26 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.ArrayList;
+import java.util.List;
+
 public class TrainConsistManagementApp {
+
     public static void main(String[] args) {
 
         // Welcome Message
         System.out.println("======================================");
-        System.out.println("  Welcome to Train Consist Management ");
+        System.out.println("   Train Consist Management App 🚆");
         System.out.println("======================================");
 
-        // Basic demonstration (simulating coaches)
-        for (int i = 1; i <= 5; i++) {
-            System.out.println("Coach " + i + " is attached to the train.");
-        }
+        // Initialize empty train consist
+        List<String> trainConsist = new ArrayList<>();
 
-        // Closing Message
-        System.out.println("--------------------------------------");
-        System.out.println("Train setup completed successfully!");
+        // Display initial state
+        System.out.println("\nInitializing train consist...");
+        System.out.println("No bogies attached yet.");
+
+        // Display bogie count
+        System.out.println("Current Bogie Count: " + trainConsist.size());
+
+        // Program continues
+        System.out.println("\nSystem ready for further operations...");
     }
 }
