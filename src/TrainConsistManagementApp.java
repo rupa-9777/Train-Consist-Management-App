@@ -1,27 +1,22 @@
-import java.util.LinkedList;
+import java.util.LinkedHashSet;
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
         System.out.println("======================================");
-        System.out.println(" UC4 - Maintain Ordered Train Consist ");
+        System.out.println(" UC5 - Preserve Insertion Order ");
         System.out.println("======================================");
 
-        LinkedList<String> train = new LinkedList<>();
+        LinkedHashSet<String> train = new LinkedHashSet<>();
 
         train.add("Engine");
         train.add("Sleeper");
-        train.add("AC");
         train.add("Cargo");
         train.add("Guard");
+        train.add("Sleeper");
 
-        train.add(2, "Pantry");
-
-        train.removeFirst();
-        train.removeLast();
-
-        System.out.println("\nFinal Train Consist:");
+        System.out.println("\nTrain Formation:");
         System.out.println(train);
     }
 }
