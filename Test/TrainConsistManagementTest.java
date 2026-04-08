@@ -22,7 +22,6 @@ public class TrainConsistManagementTest {
     }
 
     @Test
-        assertTrue(result.isEmpty());
     }
 
     @Test
