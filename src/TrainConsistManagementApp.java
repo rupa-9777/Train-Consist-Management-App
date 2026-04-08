@@ -1,32 +1,17 @@
-import java.util.Arrays;
-
 public class TrainConsistManagementApp {
 
-    // 🔹 Binary Search Method
-    public static boolean binarySearchBogie(String[] bogies, String key) {
+    // 🔹 Search with Validation (Fail-Fast)
+    public static boolean searchBogie(String[] bogies, String key) {
 
-        // Handle empty array
+        // ✅ State Validation (Fail-Fast)
         if (bogies == null || bogies.length == 0) {
-            return false;
+            throw new IllegalStateException("No bogies available in the train to search.");
         }
 
-        // 🔹 Ensure array is sorted (important precondition)
-        Arrays.sort(bogies);
-
-        int low = 0;
-        int high = bogies.length - 1;
-
-        while (low <= high) {
-            int mid = (low + high) / 2;
-
-            int cmp = bogies[mid].compareTo(key);
-
-            if (cmp == 0) {
+        // 🔍 Linear Search (after validation)
+        for (String bogie : bogies) {
+            if (bogie.equals(key)) {
                 return true; // found
-            } else if (cmp < 0) {
-                low = mid + 1; // search right
-            } else {
-                high = mid - 1; // search left
             }
         }
 
@@ -35,16 +20,21 @@ public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        String[] bogieIds = {"BG101","BG205","BG309","BG412","BG550"};
+        String[] bogieIds = {"BG101","BG205","BG309"};
 
-        String searchKey = "BG309";
+        String searchKey = "BG205";
 
-        boolean found = binarySearchBogie(bogieIds, searchKey);
+        try {
+            boolean found = searchBogie(bogieIds, searchKey);
 
-        if (found) {
-            System.out.println("Bogie Found: " + searchKey);
-        } else {
-            System.out.println("Bogie Not Found: " + searchKey);
+            if (found) {
+                System.out.println("Bogie Found: " + searchKey);
+            } else {
+                System.out.println("Bogie Not Found: " + searchKey);
+            }
+
+        } catch (IllegalStateException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
