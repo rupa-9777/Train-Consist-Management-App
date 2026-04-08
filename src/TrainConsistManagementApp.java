@@ -1,41 +1,28 @@
-import java.util.*;
+import java.util.regex.*;
 
-class Bogie {
-    String name;
-    int capacity;
+public class TrainConsistManagement {
 
-    Bogie(String name, int capacity) {
-        this.name = name;
-        this.capacity = capacity;
+    private static final String TRAIN_REGEX = "TRN-\\d{4}";
+    private static final String CARGO_REGEX = "PET-[A-Z]{2}";
+
+    public static boolean isValidTrainId(String trainId) {
+        Pattern pattern = Pattern.compile(TRAIN_REGEX);
+        Matcher matcher = pattern.matcher(trainId);
+        return matcher.matches();
     }
-}
 
-public class TrainConsistManagementApp {
+    public static boolean isValidCargoCode(String cargoCode) {
+        Pattern pattern = Pattern.compile(CARGO_REGEX);
+        Matcher matcher = pattern.matcher(cargoCode);
+        return matcher.matches();
+    }
 
     public static void main(String[] args) {
 
-        System.out.println("======================================");
-        System.out.println(" UC10 - Count Total Seats in Train ");
-        System.out.println("======================================");
+        String trainId = "TRN-1234";
+        String cargoCode = "PET-AB";
 
-        List<Bogie> bogies = new ArrayList<>();
-
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 56));
-        bogies.add(new Bogie("First Class", 24));
-        bogies.add(new Bogie("Sleeper", 70));
-
-        System.out.println("\nBogies in Train:");
-        for (Bogie b : bogies) {
-            System.out.println(b.name + " -> " + b.capacity);
-        }
-
-        int totalSeats = bogies.stream()
-                .map(b -> b.capacity)
-                .reduce(0, Integer::sum);
-
-        System.out.println("\nTotal Seating Capacity of Train: " + totalSeats);
-
-        System.out.println("\nUC10 aggregation completed...");
+        System.out.println("Train ID Valid: " + isValidTrainId(trainId));
+        System.out.println("Cargo Code Valid: " + isValidCargoCode(cargoCode));
     }
 }
