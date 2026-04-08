@@ -1,41 +1,42 @@
 import java.util.*;
+import java.util.stream.*;
 
 class Bogie {
-    String name;
+    String type;
     int capacity;
 
-    Bogie(String name, int capacity) {
-        this.name = name;
+    Bogie(String type, int capacity) {
+        this.type = type;
         this.capacity = capacity;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public String toString() {
+        return type + " : " + capacity;
     }
 }
 
 public class TrainConsistManagementApp {
 
-    public static void main(String[] args) {
+    public static int totalCapacity(List<Bogie> bogies) {
+        return bogies.stream()
+                .map(b -> b.getCapacity())
+                .reduce(0, Integer::sum);
+    }
 
-        System.out.println("======================================");
-        System.out.println(" UC10 - Count Total Seats in Train ");
-        System.out.println("======================================");
+    public static void main(String[] args) {
 
         List<Bogie> bogies = new ArrayList<>();
 
         bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 56));
-        bogies.add(new Bogie("First Class", 24));
-        bogies.add(new Bogie("Sleeper", 70));
+        bogies.add(new Bogie("AC Chair", 60));
+        bogies.add(new Bogie("First Class", 50));
 
-        System.out.println("\nBogies in Train:");
-        for (Bogie b : bogies) {
-            System.out.println(b.name + " -> " + b.capacity);
-        }
+        int total = totalCapacity(bogies);
 
-        int totalSeats = bogies.stream()
-                .map(b -> b.capacity)
-                .reduce(0, Integer::sum);
-
-        System.out.println("\nTotal Seating Capacity of Train: " + totalSeats);
-
-        System.out.println("\nUC10 aggregation completed...");
+        System.out.println("Total Seating Capacity: " + total);
     }
 }
