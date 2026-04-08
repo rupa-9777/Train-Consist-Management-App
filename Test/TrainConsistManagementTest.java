@@ -4,37 +4,51 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TrainConsistManagementTest {
 
     @Test
-    void testSearch_BogieFound() {
+    void testBinarySearch_BogieFound() {
         String[] arr = {"BG101","BG205","BG309","BG412","BG550"};
 
-        assertTrue(TrainConsistManagement.searchBogie(arr, "BG309"));
+        assertTrue(TrainConsistManagement.binarySearchBogie(arr, "BG309"));
     }
 
     @Test
-    void testSearch_BogieNotFound() {
+    void testBinarySearch_BogieNotFound() {
         String[] arr = {"BG101","BG205","BG309","BG412","BG550"};
 
-        assertFalse(TrainConsistManagement.searchBogie(arr, "BG999"));
+        assertFalse(TrainConsistManagement.binarySearchBogie(arr, "BG999"));
     }
 
     @Test
-    void testSearch_FirstElementMatch() {
+    void testBinarySearch_FirstElementMatch() {
         String[] arr = {"BG101","BG205","BG309","BG412","BG550"};
 
-        assertTrue(TrainConsistManagement.searchBogie(arr, "BG101"));
+        assertTrue(TrainConsistManagement.binarySearchBogie(arr, "BG101"));
     }
 
     @Test
-    void testSearch_LastElementMatch() {
+    void testBinarySearch_LastElementMatch() {
         String[] arr = {"BG101","BG205","BG309","BG412","BG550"};
 
-        assertTrue(TrainConsistManagement.searchBogie(arr, "BG550"));
+        assertTrue(TrainConsistManagement.binarySearchBogie(arr, "BG550"));
     }
 
     @Test
-    void testSearch_SingleElementArray() {
+    void testBinarySearch_SingleElementArray() {
         String[] arr = {"BG101"};
 
-        assertTrue(TrainConsistManagement.searchBogie(arr, "BG101"));
+        assertTrue(TrainConsistManagement.binarySearchBogie(arr, "BG101"));
+    }
+
+    @Test
+    void testBinarySearch_EmptyArray() {
+        String[] arr = {};
+
+        assertFalse(TrainConsistManagement.binarySearchBogie(arr, "BG101"));
+    }
+
+    @Test
+    void testBinarySearch_UnsortedInputHandled() {
+        String[] arr = {"BG309","BG101","BG550","BG205","BG412"};
+
+        assertTrue(TrainConsistManagement.binarySearchBogie(arr, "BG205"));
     }
 }
