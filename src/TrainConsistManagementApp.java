@@ -1,57 +1,32 @@
-class CargoSafetyException extends RuntimeException {
-    public CargoSafetyException(String message) {
-        super(message);
-    }
-}
+import java.util.Arrays;
 
-class GoodsBogie {
-    private String type;
-    private String cargo;
+public class TrainConsistManagement {
 
-    public GoodsBogie(String type) {
-        this.type = type;
-    }
+    // 🔹 Bubble Sort Method
+    public static void bubbleSort(int[] arr) {
 
-    public void assignCargo(String cargo) {
-        try {
-            // ❌ unsafe rule
-            if (type.equalsIgnoreCase("Rectangular") &&
-                    cargo.equalsIgnoreCase("Petroleum")) {
-                throw new CargoSafetyException("Unsafe: Petroleum cannot be assigned to Rectangular bogie");
+        int n = arr.length;
+
+        for (int i = 0; i < n - 1; i++) {
+
+            for (int j = 0; j < n - i - 1; j++) {
+
+                if (arr[j] > arr[j + 1]) {
+                    // swap
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
             }
-
-            this.cargo = cargo;
-            System.out.println("Cargo assigned: " + cargo);
-
-        } catch (CargoSafetyException e) {
-            System.out.println("Error: " + e.getMessage());
-
-        } finally {
-            System.out.println("Assignment attempt completed for " + type);
         }
     }
 
-    public String getCargo() {
-        return cargo;
-    }
-}
-
-public class TrainConsistManagementApp {
-
     public static void main(String[] args) {
 
-        GoodsBogie b1 = new GoodsBogie("Cylindrical");
-        GoodsBogie b2 = new GoodsBogie("Rectangular");
+        int[] capacities = {72, 56, 24, 70, 60};
 
-        // ✅ safe
-        b1.assignCargo("Petroleum");
+        bubbleSort(capacities);
 
-        // ❌ unsafe (handled)
-        b2.assignCargo("Petroleum");
-
-        // ✅ program continues
-        b2.assignCargo("Coal");
-
-        System.out.println("Program continues safely...");
+        System.out.println("Sorted Capacities: " + Arrays.toString(capacities));
     }
 }

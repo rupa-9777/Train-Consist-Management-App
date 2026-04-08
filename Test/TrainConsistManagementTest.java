@@ -4,46 +4,42 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TrainConsistManagementTest {
 
     @Test
-    void testCargo_SafeAssignment() {
-        GoodsBogie b = new GoodsBogie("Cylindrical");
-        b.assignCargo("Petroleum");
+    void testSort_BasicSorting() {
+        int[] arr = {72, 56, 24, 70, 60};
+        TrainConsistManagement.bubbleSort(arr);
 
-        assertEquals("Petroleum", b.getCargo());
+        assertArrayEquals(new int[]{24, 56, 60, 70, 72}, arr);
     }
 
     @Test
-    void testCargo_UnsafeAssignmentHandled() {
-        GoodsBogie b = new GoodsBogie("Rectangular");
-        b.assignCargo("Petroleum");
+    void testSort_AlreadySortedArray() {
+        int[] arr = {24, 56, 60, 70, 72};
+        TrainConsistManagement.bubbleSort(arr);
 
-        assertNull(b.getCargo());
+        assertArrayEquals(new int[]{24, 56, 60, 70, 72}, arr);
     }
 
     @Test
-    void testCargo_CargoNotAssignedAfterFailure() {
-        GoodsBogie b = new GoodsBogie("Rectangular");
-        b.assignCargo("Petroleum");
+    void testSort_DuplicateValues() {
+        int[] arr = {72, 56, 56, 24};
+        TrainConsistManagement.bubbleSort(arr);
 
-        assertNull(b.getCargo());
+        assertArrayEquals(new int[]{24, 56, 56, 72}, arr);
     }
 
     @Test
-    void testCargo_ProgramContinuesAfterException() {
-        GoodsBogie b = new GoodsBogie("Rectangular");
+    void testSort_SingleElementArray() {
+        int[] arr = {50};
+        TrainConsistManagement.bubbleSort(arr);
 
-        b.assignCargo("Petroleum"); // fails
-        b.assignCargo("Coal");      // should work
-
-        assertEquals("Coal", b.getCargo());
+        assertArrayEquals(new int[]{50}, arr);
     }
 
     @Test
-    void testCargo_FinallyBlockExecution() {
-        GoodsBogie b = new GoodsBogie("Rectangular");
+    void testSort_AllEqualValues() {
+        int[] arr = {40, 40, 40};
+        TrainConsistManagement.bubbleSort(arr);
 
-        // just checking no crash + finally runs
-        b.assignCargo("Petroleum");
-
-        assertTrue(true);
+        assertArrayEquals(new int[]{40, 40, 40}, arr);
     }
 }
