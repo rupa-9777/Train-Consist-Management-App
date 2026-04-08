@@ -1,50 +1,56 @@
-class InvalidCapacityException extends Exception {
-    public InvalidCapacityException(String message) {
+class CargoSafetyException extends RuntimeException {
+    public CargoSafetyException(String message) {
         super(message);
     }
 }
 
-class PassengerBogie {
+class GoodsBogie {
     private String type;
-    private int capacity;
+    private String cargo;
 
-    public PassengerBogie(String type, int capacity) throws InvalidCapacityException {
-
-        if (capacity <= 0) {
-            throw new InvalidCapacityException("Capacity must be greater than zero");
-        }
-
+    public GoodsBogie(String type) {
         this.type = type;
-        this.capacity = capacity;
     }
 
-    public String getType() {
-        return type;
+    public void assignCargo(String cargo) {
+        try {
+            // ❌ unsafe rule
+            if (type.equalsIgnoreCase("Rectangular") &&
+                    cargo.equalsIgnoreCase("Petroleum")) {
+                throw new CargoSafetyException("Unsafe: Petroleum cannot be assigned to Rectangular bogie");
+            }
+
+            this.cargo = cargo;
+            System.out.println("Cargo assigned: " + cargo);
+
+        } catch (CargoSafetyException e) {
+            System.out.println("Error: " + e.getMessage());
+
+        } finally {
+            System.out.println("Assignment attempt completed for " + type);
+        }
     }
 
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public String toString() {
-        return type + " : " + capacity;
+    public String getCargo() {
+        return cargo;
     }
 }
 
-public class TrainConsistManagement {
+public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        try {
-            PassengerBogie b1 = new PassengerBogie("Sleeper", 72);
-            PassengerBogie b2 = new PassengerBogie("AC Chair", 0); // ❌ invalid
+        GoodsBogie b1 = new GoodsBogie("Cylindrical");
+        GoodsBogie b2 = new GoodsBogie("Rectangular");
 
-            System.out.println(b1);
-            System.out.println(b2);
+        // ✅ safe
+        b1.assignCargo("Petroleum");
 
-        } catch (InvalidCapacityException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+        // ❌ unsafe (handled)
+        b2.assignCargo("Petroleum");
+
+        // ✅ program continues
+        b2.assignCargo("Coal");
 
         System.out.println("Program continues safely...");
     }
