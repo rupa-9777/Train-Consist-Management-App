@@ -2,44 +2,43 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 class Bogie {
-    String name;
+    String type;
     int capacity;
 
-    Bogie(String name, int capacity) {
-        this.name = name;
+    Bogie(String type, int capacity) {
+        this.type = type;
         this.capacity = capacity;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public String toString() {
+        return type + " : " + capacity;
     }
 }
 
 public class TrainConsistManagementApp {
 
-    public static void main(String[] args) {
+    public static List<Bogie> filterBogies(List<Bogie> bogies, int threshold) {
+        return bogies.stream()
+                .filter(b -> b.getCapacity() > threshold)
+                .collect(Collectors.toList());
+    }
 
-        System.out.println("======================================");
-        System.out.println(" UC8 - Filter Bogies Using Streams ");
-        System.out.println("======================================");
+    public static void main(String[] args) {
 
         List<Bogie> bogies = new ArrayList<>();
 
         bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 56));
-        bogies.add(new Bogie("First Class", 24));
+        bogies.add(new Bogie("AC Chair", 60));
+        bogies.add(new Bogie("First Class", 50));
         bogies.add(new Bogie("General", 90));
 
-        System.out.println("\nAll Bogies:");
-        for (Bogie b : bogies) {
-            System.out.println(b.name + " -> " + b.capacity);
-        }
+        List<Bogie> filtered = filterBogies(bogies, 60);
 
-        List<Bogie> filtered = bogies.stream()
-                .filter(b -> b.capacity > 60)
-                .collect(Collectors.toList());
-
-        System.out.println("\nFiltered Bogies (Capacity > 60):");
-        for (Bogie b : filtered) {
-            System.out.println(b.name + " -> " + b.capacity);
-        }
-
-        System.out.println("\nUC8 filtering completed...");
+        System.out.println("Filtered Bogies:");
+        filtered.forEach(System.out::println);
     }
 }
